@@ -5,7 +5,6 @@ import com.tutorial.tutorial1.model.response.BaseDetailsResponse;
 import com.tutorial.tutorial1.model.response.DefaultResponse;
 import com.tutorial.tutorial1.service.CarService;
 import com.tutorial.tutorial1.utils.ResponseUtil;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
-//@AllArgsConstructor
 @RequestMapping("/cars")
 @Slf4j
 public class CarController {
