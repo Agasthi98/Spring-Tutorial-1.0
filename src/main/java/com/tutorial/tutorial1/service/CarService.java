@@ -3,6 +3,7 @@ package com.tutorial.tutorial1.service;
 import com.tutorial.tutorial1.entity.Car;
 import com.tutorial.tutorial1.model.response.BaseDetailsResponse;
 import com.tutorial.tutorial1.repository.CarRepository;
+import com.tutorial.tutorial1.utils.GenerateNumbersUtil;
 import com.tutorial.tutorial1.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,14 +16,19 @@ import java.util.List;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final GenerateNumbersUtil generateNumbersUtil;
 
-    public CarService(CarRepository carRepository) {
+    public CarService(CarRepository carRepository, GenerateNumbersUtil generateNumbersUtil) {
         this.carRepository = carRepository;
+        this.generateNumbersUtil = generateNumbersUtil;
     }
 
     public BaseDetailsResponse<Car> addCar(Car car){
         Car response = carRepository.save(car);
 
+        String chassieNumber = car.getChassieNumber();
+
+        car.setChassieNumber(generateNumbersUtil.formatChassieNumber(chassieNumber));
         log.info("Car added successfully" +response);
 
         return BaseDetailsResponse.<Car>builder()

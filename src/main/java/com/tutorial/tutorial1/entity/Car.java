@@ -17,4 +17,12 @@ public class Car {
     private Long id;
     private String model;
     private String brand;
+    private String color;
+    @Column(name = "year_of_manufacture") // Use an alternative column name
+    private String year;
+    @Column(length = 30)
+    private String chassieNumber;
+    private String engineNumber;
+    private int engineCapacity;
+    private String fuelType;
 }
