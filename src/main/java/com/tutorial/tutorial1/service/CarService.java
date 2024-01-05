@@ -30,7 +30,7 @@ public class CarService {
         car.setEngineNumber("EG-" + engineNumber);
 
         try {
-            Car response = carRepository.save(car);
+            Car response = carRepository.save(car); 
 
             log.info("Car added successfully" + response);
 
