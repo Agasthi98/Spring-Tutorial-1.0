@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-public class Car {
+public class Car extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +24,5 @@ public class Car {
     private String engineNumber;
     private int engineCapacity;
     private String fuelType;
+    private String ownerName;
 }

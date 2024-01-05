@@ -15,4 +15,18 @@ public class GenerateNumbersUtil {
         }
         return formattedChassieNumber.toString();
     }
+
+    public String maskLoyaltyNumber(String loyaltyNumber) {
+        if (loyaltyNumber == null || loyaltyNumber.length() != 10) {
+            throw new IllegalArgumentException("Invalid loyalty number");
+        }
+
+        // Masking the first 8 digits
+        String maskedNumber = loyaltyNumber.substring(0, 8).replaceAll(".", "*");
+
+        // Displaying the last 2 digits
+        maskedNumber += loyaltyNumber.substring(8);
+
+        return maskedNumber;
+    }
 }
