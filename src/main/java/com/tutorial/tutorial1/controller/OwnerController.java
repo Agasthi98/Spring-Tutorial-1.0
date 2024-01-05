@@ -1,6 +1,5 @@
 package com.tutorial.tutorial1.controller;
 
-import com.tutorial.tutorial1.entity.Car;
 import com.tutorial.tutorial1.entity.Owner;
 import com.tutorial.tutorial1.model.response.BaseDetailsResponse;
 import com.tutorial.tutorial1.model.response.DefaultResponse;
