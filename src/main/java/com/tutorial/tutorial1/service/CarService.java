@@ -1,6 +1,7 @@
 package com.tutorial.tutorial1.service;
 
 import com.tutorial.tutorial1.entity.Car;
+import com.tutorial.tutorial1.model.CarDto;
 import com.tutorial.tutorial1.model.response.BaseDetailsResponse;
 import com.tutorial.tutorial1.repository.CarRepository;
 import com.tutorial.tutorial1.utils.GenerateNumbersUtil;
@@ -49,7 +50,7 @@ public class CarService {
 
     public BaseDetailsResponse<HashMap<String, Object>> getCarsList() {
         try {
-            List<Car> carList = carRepository.getCarList();
+            List<CarDto> carList = carRepository.findAllByOrderByIdDesc();
             HashMap<String, Object> data = new HashMap<>();
             data.put("cars", carList);
 

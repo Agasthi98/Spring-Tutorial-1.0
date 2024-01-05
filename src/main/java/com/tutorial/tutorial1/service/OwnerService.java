@@ -1,6 +1,8 @@
 package com.tutorial.tutorial1.service;
 
+import com.tutorial.tutorial1.entity.Car;
 import com.tutorial.tutorial1.entity.Owner;
+import com.tutorial.tutorial1.model.OwnerDto;
 import com.tutorial.tutorial1.model.response.BaseDetailsResponse;
 import com.tutorial.tutorial1.repository.OwnerRepository;
 import com.tutorial.tutorial1.utils.CarNumberGenerator;
@@ -8,6 +10,9 @@ import com.tutorial.tutorial1.utils.GenerateNumbersUtil;
 import com.tutorial.tutorial1.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -46,5 +51,27 @@ public class OwnerService {
             log.error("addOwner-> Exception: " + e.getMessage(), e);
             return null;
         }
+    }
+
+
+
+    public BaseDetailsResponse<HashMap<String, Object>> getOwnersList() {
+        try {
+            List<OwnerDto> carList = ownerRepository.findAllByOrderByIdDesc();
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("owners", carList);
+
+            return BaseDetailsResponse.<HashMap<String, Object>>builder()
+                    .code(ResponseUtil.SUCCESS_CODE)
+                    .title(ResponseUtil.SUCCESS)
+                    .message("Get owners list success")
+                    .data(data)
+                    .build();
+
+        } catch (Exception e) {
+            log.error("getOwnerList-> Exception: " + e.getMessage(), e);
+            return null;
+        }
+
     }
 }
