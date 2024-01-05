@@ -29,16 +29,22 @@ public class CarService {
         car.setChassieNumber(generateNumbersUtil.formatChassieNumber(chassieNumber));
         car.setEngineNumber("EG-" + engineNumber);
 
-        Car response = carRepository.save(car);
+        try {
+            Car response = carRepository.save(car);
 
-        log.info("Car added successfully" + response);
+            log.info("Car added successfully" + response);
 
-        return BaseDetailsResponse.<Car>builder()
-                .code(ResponseUtil.SUCCESS_CODE)
-                .title(ResponseUtil.SUCCESS)
-                .message("Car added successfully")
-                .data(response)
-                .build();
+            return BaseDetailsResponse.<Car>builder()
+                    .code(ResponseUtil.SUCCESS_CODE)
+                    .title(ResponseUtil.SUCCESS)
+                    .message("Car added successfully")
+                    .data(response)
+                    .build();
+
+        } catch (Exception e) {
+            log.error("addCar-> Exception: " + e.getMessage(), e);
+            return null;
+        }
     }
 
     public BaseDetailsResponse<HashMap<String, Object>> getCarsList() {
@@ -53,6 +59,7 @@ public class CarService {
                     .message("Get cars list success")
                     .data(data)
                     .build();
+
         } catch (Exception e) {
             log.error("getCarsList-> Exception: " + e.getMessage(), e);
             return null;

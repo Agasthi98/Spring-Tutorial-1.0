@@ -23,23 +23,28 @@ public class OwnerService {
     public BaseDetailsResponse<Owner> addOwner(Owner owner) {
         String phoneNumber = generateNumbersUtil.processPhoneNumber(owner.getPhoneNumber());
         String nic = generateNumbersUtil.maskNumber(owner.getNic());
-        String carNo  = CarNumberGenerator.generateRandomCarNumber();
+        String carNo = CarNumberGenerator.generateRandomCarNumber();
         String memberShipNo = owner.getMembershipNumber();
 
         owner.setPhoneNumber(phoneNumber);
         owner.setNic(nic);
         owner.setCarNo(carNo);
-        owner.setMembershipNumber("M"+memberShipNo);
+        owner.setMembershipNumber("M" + memberShipNo);
 
-        Owner response = ownerRepository.save(owner);
+        try {
+            Owner response = ownerRepository.save(owner);
+            log.info("Owner added successfully" + response);
 
-        log.info("Owner added successfully" + response);
+            return BaseDetailsResponse.<Owner>builder()
+                    .code(ResponseUtil.SUCCESS_CODE)
+                    .title(ResponseUtil.SUCCESS)
+                    .message("Owner added successfully")
+                    .data(response)
+                    .build();
 
-        return BaseDetailsResponse.<Owner>builder()
-                .code(ResponseUtil.SUCCESS_CODE)
-                .title(ResponseUtil.SUCCESS)
-                .message("Owner added successfully")
-                .data(response)
-                .build();
+        } catch (Exception e) {
+            log.error("addOwner-> Exception: " + e.getMessage(), e);
+            return null;
+        }
     }
 }
