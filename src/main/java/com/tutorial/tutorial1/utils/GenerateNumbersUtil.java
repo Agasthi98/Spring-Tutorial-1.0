@@ -16,7 +16,7 @@ public class GenerateNumbersUtil {
         return formattedChassieNumber.toString();
     }
 
-    public String maskLoyaltyNumber(String loyaltyNumber) {
+    public String maskNumber(String loyaltyNumber) {
         if (loyaltyNumber == null || loyaltyNumber.length() != 10) {
             throw new IllegalArgumentException("Invalid loyalty number");
         }
@@ -29,4 +29,19 @@ public class GenerateNumbersUtil {
 
         return maskedNumber;
     }
+
+    public String processPhoneNumber(String phoneNumber) {
+        // Remove leading 0 if present
+        if (phoneNumber.startsWith("0")) {
+            phoneNumber = phoneNumber.substring(1);
+        }
+
+        // Add "94" to the beginning if not already present
+        if (!phoneNumber.startsWith("94")) {
+            phoneNumber = "94" + phoneNumber;
+        }
+
+        return phoneNumber;
+    }
+
 }

@@ -16,10 +16,11 @@ public class Owner extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(length = 10)
     private String phoneNumber;
     private String email;
+    @Column(length = 10)
     private String nic;
     private String membershipNumber;
-    private String loyaltyNumber;
     private String carNo;
 }

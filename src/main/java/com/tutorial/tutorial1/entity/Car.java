@@ -1,5 +1,6 @@
 package com.tutorial.tutorial1.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,5 +25,6 @@ public class Car extends BaseEntity{
     private String engineNumber;
     private int engineCapacity;
     private String fuelType;
-    private String ownerName;
+    @JsonProperty("owner_id") // This is the foreign key column in the Car table
+    private String owner;
 }
