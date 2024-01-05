@@ -23,13 +23,15 @@ public class CarService {
         this.generateNumbersUtil = generateNumbersUtil;
     }
 
-    public BaseDetailsResponse<Car> addCar(Car car){
+    public BaseDetailsResponse<Car> addCar(Car car) {
+        String chassieNumber = car.getChassieNumber();
+        String engineNumber = car.getEngineNumber();
+        car.setChassieNumber(generateNumbersUtil.formatChassieNumber(chassieNumber));
+        car.setEngineNumber("EG-" + engineNumber);
+
         Car response = carRepository.save(car);
 
-        String chassieNumber = car.getChassieNumber();
-
-        car.setChassieNumber(generateNumbersUtil.formatChassieNumber(chassieNumber));
-        log.info("Car added successfully" +response);
+        log.info("Car added successfully" + response);
 
         return BaseDetailsResponse.<Car>builder()
                 .code(ResponseUtil.SUCCESS_CODE)
@@ -39,19 +41,19 @@ public class CarService {
                 .build();
     }
 
-    public BaseDetailsResponse<HashMap<String,Object>> getCarsList(){
-        try{
+    public BaseDetailsResponse<HashMap<String, Object>> getCarsList() {
+        try {
             List<Car> carList = carRepository.getCarList();
             HashMap<String, Object> data = new HashMap<>();
             data.put("cars", carList);
 
-            return BaseDetailsResponse.<HashMap<String,Object>>builder()
+            return BaseDetailsResponse.<HashMap<String, Object>>builder()
                     .code(ResponseUtil.SUCCESS_CODE)
                     .title(ResponseUtil.SUCCESS)
                     .message("Get cars list success")
                     .data(data)
                     .build();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("getCarsList-> Exception: " + e.getMessage(), e);
             return null;
         }
